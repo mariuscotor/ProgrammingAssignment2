@@ -3,14 +3,14 @@
 ## create a special matrix object - add the matrix in the cache 
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL
-  set <- function(y) {
+  setMatrix <- function(y) {
     x <<- y
     inv <<- NULL
   }
-  get <- function() x
+  getMatrix <- function() x
   setInvMatrix <- function(invMatrix) inv <<- invMatrix
   getInvMatrix <- function() inv
-  list(set = set, get = get,
+  list(setMatrix = setMatrix, get = getMatrix,
        setInvMatrix = setInvMatrix,
        getInvMatrix = getInvMatrix)
 }
@@ -25,7 +25,7 @@ cacheSolve <- function(x, ...) {
     message("getting cached data")
     return(inv)
   }
-  data <- x$get()
+  data <- x$getMatrix()
   inv <- solve(data, ...)
   ##assume that the matrix supplied is always invertible
   x$setInvMatrix(inv)
